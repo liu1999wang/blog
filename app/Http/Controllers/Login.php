@@ -8,7 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-class User extends BaseController
+class Login extends BaseController
 {
 
    public function add(){
@@ -17,13 +17,14 @@ class User extends BaseController
     // }else{
     //     dd("不存在");
     // }
-    return view('user/add');
+    return view('login/add');
     // dd("1212");
    } 
    public function store(Request $request){
     // $input=$request->all();
     $input=$request->except('_token');
-    $input['password']=md5($input['password']);
-    dd($input);
+    $input['user_pass']=md5($input['user_pass']);
+    $res = User::create($input);
+    dd($res);
    } 
 }

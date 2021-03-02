@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('user/add','User@add');
-Route::post('user/store','User@store');
+Route::get('login/add','Login@add');
+Route::post('login/store','Login@store');
 Route::fallback(function () {
     dd("404 找不到该路由");
 });
