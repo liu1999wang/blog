@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use App\User;
 class Login extends BaseController
 {
 
@@ -25,6 +26,10 @@ class Login extends BaseController
     $input=$request->except('_token');
     $input['user_pass']=md5($input['user_pass']);
     $res = User::create($input);
-    dd($res);
+    if($res){
+       return redirect('index/index');
+    }else{
+       return back();
+    }
    } 
 }
