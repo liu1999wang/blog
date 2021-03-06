@@ -48,7 +48,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="订单管理">&#xe723;</i>
                             <cite>订单管理</cite>
@@ -91,7 +91,7 @@
                                     <cite>三级地区联动</cite></a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe726;</i>
@@ -99,7 +99,7 @@
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a onclick="xadmin.add_tab('管理员列表','admin-list.html')">
+                                <a onclick="xadmin.add_tab('管理员列表','{{url('admin/list')}}')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>管理员列表</cite></a>
                             </li>
@@ -120,7 +120,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="系统统计">&#xe6ce;</i>
                             <cite>系统统计</cite>
@@ -251,7 +251,7 @@
                                     <cite>notice 通知控件</cite></a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>

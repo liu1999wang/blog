@@ -8,12 +8,15 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use App\Model\User;
+use App\Model\AdminData;
 use Illuminate\Support\Facades\Validator;
 class Login extends BaseController
 {
 
    public function index(Request $request){
+         if(session()->get('user_id')){
+            return redirect('index/index');
+         }
          return view('admin/login/index');
    } 
    public function store(Request $request){
@@ -29,7 +32,7 @@ class Login extends BaseController
       $validator = Validator::make($input,$rule,$msg);
       if ($validator->fails())
             return json_encode(['code'=>0,'mag'=>$validator]);
-      $user=User::where('user_name',$input['user_name'])->first();
+      $user=AdminData::where('user_name',$input['user_name'])->first();
       if(!$user){
             return json_encode(['code'=>2,'mag'=>'用户名不存在']);
       }else{

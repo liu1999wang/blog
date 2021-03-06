@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据字典</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+<style>
+    samp{
+        background-color: rgb(155, 156, 156);
+    }
+</style>
+<body>
+    <div class="container">
+        <br>
+        <br>
+        <h1>Blog数据字典</h1>
+        
+        <hr>
+        <div class="data">
+            <h5>后台用户表 <samp>data_admin_user</samp></h5>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">字段名</th>
+                    <th scope="col">字段类型</th>
+                    <th scope="col">长度</th>
+                    <th scope="col">是否为空</th>
+                    <th scope="col">约束</th>
+                    <th scope="col">默认值</th>
+                    <th scope="col">备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>user_id</td>
+                    <td>int</td>
+                    <td>10</td>
+                    <td>N</td>
+                    <td>主键</td>
+                    <td>Null</td>
+                    <td>用户表主键</td>
+                </tr>
+                <tr>
+                    <td>user_name</td>
+                    <td>varchar</td>
+                    <td>60</td>
+                    <td>N</td>
+                    <td>唯一约束</td>
+                    <td>"</td>
+                    <td>用户名</td>
+                </tr>
+                <tr>
+                    <td>user_pass</td>
+                    <td>varchar</td>
+                    <td>60</td>
+                    <td>N</td>
+                    <td></td>
+                    <td>"</td>
+                    <td>密码</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+        // {"中文的表名，英文的表名"：["字段名","字段类型","长度","是否为空","约束","默认值","备注"]}
+    let data={
+            "后台用户表,data_admin_user":[
+                ["user_id","int","10","N","主键","Null","用户表主键"]
+                ,["user_name","varchar","60","N","唯一约束"," ","用户名"]
+                ,["user_pass","varchar","60","N"," "," ","密码"]
+                ,["statu","int","2","N"," ","1","密码"]
+            ],
+            "前台用户表,data_reception_user":[
+                ["user_id","int","10","N","主键","Null","用户表主键"]
+                ,["user_name","varchar","60","N","唯一约束"," ","用户名"]
+                ,["user_pass","varchar","60","N"," "," ","密码"]
+                ,["phone","int","11","N","","0","电话号码"]
+                ,["email","varchar","255","N","","","邮箱"]
+                ,["sex","int","2","N","","","性别：0-男 1-女"]
+                ,["head","Longtext","","N","","","头像"]
+            ],
+            "文章分类表,blog_category":[
+                ["cate_id","int","10","N","主键","Null","分类表主键"]
+                ,["cate_name","varchar","60","N","唯一约束","","分类名称"]
+                ,["cate_title","varchar","60","N","","","分类别名"]
+                ,["cate_order","int","11","N","","0","排序"]
+                ,["cate_pid","int","11","N","","0","父id"]
+            ],
+            "文章表,blog_article":[
+                ["art_id","int","10","N","主键","Null","文章表主键"]
+                ,["art_title","varchar","60","N","唯一约束","","文章标题"]
+                ,["art_tag","varchar","60","N","","","文章标签"]
+                ,["art_description","varchar","255","N","","","文章描述"]
+                ,["art_thumb","varchar","255","N","","","文章缩略图"]
+                ,["art_content","text","","N","","","文章内容"]
+                ,["art_time","datetime","","N","","0000-00-00 00:00:00","文章发布时间"]
+                ,["art_editor","varchar","60","N","","0","文章作者"]
+                ,["art_view","int","10","N","","0","文章阅览次数"]
+                ,["cate_id","int","10","N","","0","文章分类id"]
+                ,["art_status","int","10","N","","0","文章是否加入推荐位"]
+                ,["art_love","int","10",'N',"","0","文章点赞数"]
+                ,["art_collect","int","10","N","","0","文章收藏量"]
+            ],
+            "文章点赞记录表,blog_client_ip":[
+                ["id","int","11","N","主键","Null","文章点赞记录表"]
+                ,["art_id","int","11","N","","0","文章ID"]
+                ,["ip","varchar","255","N","","","ip"]
+            ],
+            "文章收藏记录表,blog_collect":[
+                ["id","int","11","N","主键","Null","文章收藏表"]
+                ,["art_id","int","11","N","","0","文章ID"]
+                ,["uid","int","11","N","","0","收藏人id"]
+            ],
+            "文章评论表,blog_comment":[
+                ["id","int","11","N","主键","Null","文章评论表"]
+                ,["uid","int","11","N","","0","评论人id"]
+                ,["nickname","varchar","255","N","","","用户昵称"]
+                ,["head_pic","Longtext","","N","","","用户头像"]
+                ,["content","text","","N","","","评论内容"]
+                ,["post_ip","int","11","N","","0","所属文章id"]
+            ],
+            "网站配置表,blog_congig":[
+                ["conf_id","int","11","N","主键","配置ID"]
+                ,["conf_title","varchar","50","N","","","标题"]
+                ,["conf_name","varchar","50","N","","","变量名"]
+                ,["conf_content","text","","N","","","变量值"]
+                ,["conf_order","int","11","N","","","排序"]
+                ,["conf_tips","varchar","255","N","","","描述"]
+                ,["field_type","varchar","50","N","","","字段类型"]
+                ,["field_value","varchar","255","N","","","类型值"]
+                ,["created_at","timestamp","0","N","","","添加时间"]
+                ,["updated_at","timestamp","0","N","","","修改时间"]
+                ,["delete_at","timestamp","0","N","","","删除时间"]
+            ],
+            "友情链接表,blog_links":[
+                ["link_id","int","11","N","主键","Null","友情链接表"]
+                ,["link_name","varchar","255","N","","","友情链接名"]
+                ,["link_title","varchar","255","N","","","链接标题"]
+                ,["link_url","varchar","255","N","","","链接url"]
+                ,["link_order","int","11","N","","","排序"]
+                ,["created_at","timestamp","0","N","","","添加时间"]
+                ,["updated_at","timestamp","0","N","","","修改时间"]
+                ,["delete_at","timestamp","0","N","","","删除时间"]
+            ],
+            "权限表,blog_permission":[
+                ["id","int","11","N","主键","权限表"]
+                ,["per_name","varchar","255","N","","","权限名称"]
+                ,["per_url","varchar","255","N","","","权限对应路由"]
+            ],
+            "角色权限关联表,blog_role_permission":[
+                ["role_id","int","11","N","","","角色表在关联中的外键"]
+                ,["permission_id","int","11","N","","","权限表在关联中的外键"]
+            ],
+            "角色表,blog_role":[
+                ["id","int","11","N","主键","角色表"]
+                ,["role_name","varchar","255","N","","","角色名称"]
+            ]
+
+    }
+    
+    let Da=document.getElementsByClassName('data')[0]
+    let html=""
+    for(var i in data) {
+        let name=i.split(',');
+        html+=`<h5>`
+        html+=name[0]
+        html+=` <samp>`
+        html+=name[1]
+        html+=`</samp></h5>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">字段名</th>
+                    <th scope="col">字段类型</th>
+                    <th scope="col">长度</th>
+                    <th scope="col">是否为空</th>
+                    <th scope="col">约束</th>
+                    <th scope="col">默认值</th>
+                    <th scope="col">备注</th>
+                </tr>
+                </thead>
+                <tbody>`      
+    
+        for(j = 0; j < data[i].length; j++) {
+            html+=`<tr>`
+                for (let l = 0; l < data[i][j].length; l++) {
+                    html+=`<td>`
+                    html+=data[i][j][l]
+                    html+=`</td>`
+                    
+                }
+            html+=`</tr>`
+            
+        }
+        html+=`</tbody>
+                </table>`
+        Da.innerHTML=html
+    }
+    
+</script>
+</html>

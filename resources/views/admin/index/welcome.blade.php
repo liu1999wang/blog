@@ -16,7 +16,7 @@
                     <div class="layui-card">
                         <div class="layui-card-body ">
                             <blockquote class="layui-elem-quote">欢迎管理员：
-                                <span class="x-red">test</span>！当前时间:2018-04-25 20:50:53
+                                <span class="x-red">{{$user_name}}</span>！当前时间:<span id='date'></span>
                             </blockquote>
                         </div>
                     </div>
@@ -193,5 +193,24 @@
             </div>
         </div>
         </div>
+        <script>
+            function current() {
+				var d = new Date(),
+					str = '';
+				str += d.getFullYear() + '年'; //获取当前年份 
+				str += d.getMonth() + 1 + '月'; //获取当前月份（0——11） 
+				str += d.getDate() + '日';
+				str += d.getHours() + '时';
+				str += d.getMinutes() + '分';
+				str += d.getSeconds() + '秒';
+				return str;
+			}
+            let date =document.getElementById('date');
+            date.innerHTML=current();
+            setInterval(function(){
+                date.innerHTML=current();
+            },1000)
+            
+        </script>
     </body>
 </html>
