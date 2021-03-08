@@ -30,6 +30,7 @@ Route::group(['prefix'=>'index','middleware'=>'isLogin'],function (){
 Route::group(['prefix'=>'user','middleware'=>'isLogin'],function (){
     Route::get('list','User@list');//用户列表
 });
+// 管理员模块
 Route::group(['prefix'=>'admin','middleware'=>'isLogin'],function (){
     Route::get('list','Admin@list');//管理员列表
     Route::get('add','Admin@add');//管理员添加
@@ -38,7 +39,15 @@ Route::group(['prefix'=>'admin','middleware'=>'isLogin'],function (){
     Route::post('update','Admin@update');//管理员修改
     Route::post('statu','Admin@statu');//管理员状态
     Route::post('reset_pass','Admin@reset_pass');//管理员密码重置
-
+});
+//角色模块
+Route::group(['prefix'=>'role','middleware'=>'isLogin'],function (){
+    Route::get('list','Role@list');//角色列表
+    Route::get('add','Role@add');//角色添加
+    Route::post('add','Role@add');//角色添加
+    Route::get('{id}/empower','Role@empower');//角色授权列表
+    Route::get('{id}/edit','Role@edit');//角色修改页
+    Route::post('update','Role@update');//角色修改
 });
 // Route::get('index/edit/{id}','Index@edit');
 // Route::post('index/update','Index@update');

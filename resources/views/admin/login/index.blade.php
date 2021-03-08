@@ -44,7 +44,7 @@
             layer.msg(msg);    
         })
     @endif
-    // console.log())
+
     // 失焦
     function defocus (data,name){
         if(data.value==''){
@@ -110,6 +110,7 @@
                 });
             });
         });
+
 </script>
 <style>
     *{
@@ -160,9 +161,10 @@
         box-shadow:0 15px 25px rgb(0 0 0 / 60%);
         position: absolute;
         left:calc(50% - 150px);
-        top:calc(50% - 150px); 
+        top:calc(0% - 400px); 
         border-radius:10px;
         z-index: 99;
+        transition: top 3s;
     }
     .login-box{
         margin: 20px;
@@ -372,6 +374,8 @@
              }
          },20);
      }
+     let login=document.getElementsByClassName('login')[0];
+        login.style.top="calc(50% - 150px)";
      </script>
 
 

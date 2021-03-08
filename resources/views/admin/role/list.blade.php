@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
     <head>
         <meta charset="UTF-8">
-        <title>管理员列表</title>
+        <title>角色列表</title>
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -26,17 +26,9 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body ">
-                            <form class="layui-form layui-col-space5" action="{{url('admin/list')}}" method="get">
-                                  <div class="layui-input-inline layui-show-xs-block">
-                                    <select name="quiz" >
-                                      <option value="">请选择问题</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
-                                  </div>
+                            <form class="layui-form layui-col-space5" action="{{url('role/list')}}" method="get">
                                 <div class="layui-inline layui-show-xs-block">
-                                    <input type="text"  name="user_name" value="{{$request->input('user_name')}}" placeholder="请输入管理员名称" autocomplete="off" class="layui-input">
+                                    <input type="text"  name="role_name" value="{{$request->input('role_name')}}" placeholder="请输入角色名称" autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
                                     <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
@@ -45,7 +37,7 @@
                         </div>
                         <div class="layui-card-header">
                             <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('添加管理员','{{url('admin/add')}}',600,400)"><i class="layui-icon"></i>添加</button>
+                            <button class="layui-btn" onclick="xadmin.open('添加角色','{{url('role/add')}}',600,400)"><i class="layui-icon"></i>添加</button>
                         </div>
                         <div class="layui-card-body layui-table-body layui-table-main">
                             <table class="layui-table layui-form">
@@ -55,9 +47,8 @@
                                       <input type="checkbox" lay-filter="checkall" name="" lay-skin="primary">
                                     </th>
                                     <th>ID</th>
-                                    <th>用户名</th>
-                                    <th>密码</th>
-                                    <th>状态</th>
+                                    <th>角色名</th>
+                                    <th>描述</th>
                                     <th>操作</th></tr>
                                 </thead>
                                 <tbody>
@@ -67,18 +58,15 @@
                                     <td>
                                       <input type="checkbox" name="id" value="1"   lay-skin="primary"> 
                                     </td>
-                                    <td>{{$v->user_id}}</td>
-                                    <td>{{$v->user_name}}</td>
-                                    <td>{{$v->user_pass}}</td>
-                                    <td class="td-status">
-                                    
-                                    <a onclick="member_stop(this,'{{$v->user_id}}')" href="javascript:;"  title="@if($v->statu==1)已启用@endif @if($v->statu==0)已禁用@endif"><span class="layui-btn layui-btn-normal @if($v->statu==0) layui-btn-danger @endif  layui-btn-mini">@if($v->statu==1) 已启用 @endif @if($v->statu==0) 已禁用 @endif</span></a></td>
+                                    <td>{{$v->id}}</td>
+                                    <td>{{$v->role_name}}</td>
+                                    <td>{{$v->describe}}</td>
                                     <td class="td-manage">
-                                      <a title="编辑"  onclick="xadmin.open('编辑','{{url('admin/'.$v->user_id.'/edit')}}',600,400)" href="javascript:;">
-                                        <i class="layui-icon">&#xe642;</i>
+                                      <a title="授权"  onclick="xadmin.open('授权','{{url('role/'.$v->id.'/empower')}}',1000,600)" href="javascript:;">
+                                        <i class="layui-icon">&#xe612;</i>
                                       </a>
-                                      <a onclick="reset_pass('{{$v->user_id}}')" title="重置密码" href="javascript:;">
-                                        <i class="layui-icon">&#xe673;</i>
+                                      <a title="编辑"  onclick="xadmin.open('编辑','{{url('role/'.$v->id.'/edit')}}',600,400)" href="javascript:;">
+                                        <i class="layui-icon">&#xe642;</i>
                                       </a>
                                       <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
                                         <i class="layui-icon">&#xe640;</i>
