@@ -46,8 +46,17 @@ Route::group(['prefix'=>'role','middleware'=>'isLogin'],function (){
     Route::get('add','Role@add');//角色添加
     Route::post('add','Role@add');//角色添加
     Route::get('{id}/empower','Role@empower');//角色授权列表
+    Route::post('upempower','Role@upempower');//修改角色授权
     Route::get('{id}/edit','Role@edit');//角色修改页
     Route::post('update','Role@update');//角色修改
+});
+//权限模块
+Route::group(['prefix'=>'permission','middleware'=>'isLogin'],function (){
+    Route::get('list','Permission@list');//权限列表
+    Route::get('add','Permission@add');//权限添加
+    Route::post('add','Permission@add');//权限添加
+    Route::get('{id}/edit','Permission@edit');//权限修改页
+    Route::post('update','Permission@update');//权限修改
 });
 // Route::get('index/edit/{id}','Index@edit');
 // Route::post('index/update','Index@update');

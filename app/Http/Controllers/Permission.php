@@ -10,46 +10,31 @@ use Illuminate\Http\Request;//表单提交
 use Illuminate\Support\Facades\View;//视图
 use App\Model\PermissionData;
 use App\Model\RoleData;
-class Role extends BaseController
+class Permission extends BaseController
 {
-        // 角色列表
+        // 权限列表
     public function list(Request $request){
 
-        $roledata=RoleData::orderBy('id','asc')
+        $permissiondata=PermissionData::orderBy('id','asc')
         ->where(function($query) use($request){
-            $role_name=$request->input('role_name');
-            if(!empty($role_name)){ 
-                $query->where('role_name','like','%'.$role_name.'%');
+            $per_name=$request->input('per_name');
+            if(!empty($per_name)){ 
+                $query->where('per_name','like','%'.$per_name.'%');
             }
         })
-        ->paginate(10);
+        ->paginate(15);
         
-        return view('admin/role/list')->with('data',$roledata)->with('request',$request);
+        return view('admin/permission/list')->with('data',$permissiondata)->with('request',$request);
    }
-    //角色授权
-    public function empower($role_id){
-        $permission=PermissionData::get();
-        $role_permission=RoleData::find($role_id)->role_permission;
-        $permission_ids=[];
-        foreach ($role_permission as $v) {
-            $permission_ids[]=$v->id;
-        }
-        return view('admin/role/empower')->with('permission_ids',$permission_ids)->with('permission',$permission);
-   }
-    // 修改角色权限
-    public function upempower(Request $request){
-        $input=$request->except('_token');
-        return json_encode(['code'=>0,'mag'=>$input]);
-    }
     //角色添加
     public function add(Request $request){
         if($request->isMethod('post')){
             $input=$request->except('_token'); 
-            $user=RoleData::where('role_name',$input['role_name'])->first();
-            if($user){
+            $per_name=PermissionData::where('per_name',$input['per_name'])->first();
+            if($per_name){
                 return json_encode(['code'=>0,'mag'=>'名称已存在']); 
             }else{
-                $res=RoleData::create(['role_name'=>$input['role_name'],'describe'=>$input['describe']]);
+                $res=PermissionData::create(['per_name'=>$input['per_name'],'per_url'=>$input['per_url'],'parent'=>$input['parent'],'is_show'=>$input['is_show']]);
                 if($res){
                     return json_encode(['code'=>1,'mag'=>'添加成功']); 
                 }else{
@@ -57,7 +42,8 @@ class Role extends BaseController
                 }
             }
         }else{
-            return view('admin/role/add');
+            $permissiondata=PermissionData::get();
+            return view('admin/permission/add')->with('permissiondata',$permissiondata);
         }
     }
     //修改页

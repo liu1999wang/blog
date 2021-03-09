@@ -40,6 +40,6 @@ class RoleData extends Model
     ];
     //添加动态属性，关联权限模型
     public function role_permission(){
-        return $this->belongsToMany('App\Model\Permission','blog_role_permission','role_id','permission_id');
+        return $this->belongsToMany('App\Model\PermissionData','blog_role_permission','role_id','permission_id');
     }
 }

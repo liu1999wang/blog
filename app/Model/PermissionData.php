@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Permission extends Model
+class PermissionData extends Model
 {
     //模型关联表
     public  $table ='blog_permission';
