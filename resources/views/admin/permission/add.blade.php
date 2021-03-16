@@ -3,7 +3,7 @@
     
     <head>
         <meta charset="UTF-8">
-        <title>管理员添加</title>
+        <title>权限添加</title>
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -45,7 +45,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">是否在导航栏显示</label>
                         <div class="layui-input-block">
-                        <input type="radio" name="is_show" value="1" title="是" checked=""><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><div>是</div></div>
+                        <input type="radio" name="is_show" value="1" title="是" checked ><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><div>是</div></div>
                         <input type="radio" name="is_show" value="0" title="否"><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>否</div></div>
                         </div>
                     </div>

@@ -27,14 +27,7 @@
                     <div class="layui-card">
                         <div class="layui-card-body ">
                             <form class="layui-form layui-col-space5" action="{{url('admin/list')}}" method="get">
-                                  <div class="layui-input-inline layui-show-xs-block">
-                                    <select name="quiz" >
-                                      <option value="">请选择问题</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
-                                  </div>
+                                 
                                 <div class="layui-inline layui-show-xs-block">
                                     <input type="text"  name="user_name" value="{{$request->input('user_name')}}" placeholder="请输入管理员名称" autocomplete="off" class="layui-input">
                                 </div>
@@ -74,6 +67,9 @@
                                     
                                     <a onclick="member_stop(this,'{{$v->user_id}}')" href="javascript:;"  title="@if($v->statu==1)已启用@endif @if($v->statu==0)已禁用@endif"><span class="layui-btn layui-btn-normal @if($v->statu==0) layui-btn-danger @endif  layui-btn-mini">@if($v->statu==1) 已启用 @endif @if($v->statu==0) 已禁用 @endif</span></a></td>
                                     <td class="td-manage">
+                                    <a title="赋予角色"  onclick="xadmin.open('赋予角色','{{url('admin/'.$v->user_id.'/role')}}',600,400)" href="javascript:;">
+                                        <i class="layui-icon">&#xe679;</i>
+                                      </a>
                                       <a title="编辑"  onclick="xadmin.open('编辑','{{url('admin/'.$v->user_id.'/edit')}}',600,400)" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>
                                       </a>

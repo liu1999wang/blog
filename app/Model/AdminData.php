@@ -40,4 +40,7 @@ class AdminData extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function admin_role(){
+        return $this->belongsToMany('App\Model\RoleData','blog_admin_role','admin_id','role_id');
+    }
 }

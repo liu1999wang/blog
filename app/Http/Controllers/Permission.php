@@ -26,7 +26,7 @@ class Permission extends BaseController
         
         return view('admin/permission/list')->with('data',$permissiondata)->with('request',$request);
    }
-    //角色添加
+    //权限添加
     public function add(Request $request){
         if($request->isMethod('post')){
             $input=$request->except('_token'); 
@@ -48,15 +48,16 @@ class Permission extends BaseController
     }
     //修改页
     public function edit($id){
-        $admindata=RoleData::find($id);
+        $permission=PermissionData::find($id);
         // dd($admindata['user_name']);
-        return view('admin/role/edit')->with('data',$admindata);
+        $permissiondata=PermissionData::get();
+        return view('admin/permission/edit')->with('data',$permission)->with('permissiondata',$permissiondata);
     }
     //修改数据
     public function update(Request $request){
         $input=$request->all();
-        $user=RoleData::find($input['uid']);
-        $res=$user->update(['role_name'=>$input['role_name'],'describe'=>$input['describe']]);
+        $user=PermissionData::find($input['uid']);
+        $res=$user->update(['per_name'=>$input['per_name'],'per_url'=>$input['per_url'],'parent'=>$input['parent'],'is_show'=>$input['is_show']]);
         if($res){
             return json_encode(['code'=>1,'mag'=>'修改成功']);
         }else{

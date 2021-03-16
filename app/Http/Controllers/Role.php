@@ -15,7 +15,7 @@ class Role extends BaseController
         // 角色列表
     public function list(Request $request){
 
-        $roledata=RoleData::orderBy('id','asc')
+        $roledata=RoleData::orderBy('id','asc')->where('id','>','1')
         ->where(function($query) use($request){
             $role_name=$request->input('role_name');
             if(!empty($role_name)){ 
@@ -34,12 +34,20 @@ class Role extends BaseController
         foreach ($role_permission as $v) {
             $permission_ids[]=$v->id;
         }
-        return view('admin/role/empower')->with('permission_ids',$permission_ids)->with('permission',$permission);
+        return view('admin/role/empower')->with('permission_ids',$permission_ids)->with('permission',$permission)->with('role_id',$role_id);
    }
     // 修改角色权限
     public function upempower(Request $request){
         $input=$request->except('_token');
-        return json_encode(['code'=>0,'mag'=>$input]);
+        if(!isset($input['perids'])){
+            return json_encode(['code'=>0,'mag'=>'权限不能为空']);
+        }
+        $res=RoleData::find($input['role_id'])->role_permission()->sync($input['perids']);
+        if($res){
+            return json_encode(['code'=>1,'mag'=>'授权成功']);
+        }else{
+            return json_encode(['code'=>0,'mag'=>'授权失败']);
+        }
     }
     //角色添加
     public function add(Request $request){

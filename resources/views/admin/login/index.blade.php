@@ -95,7 +95,14 @@
                                     }
                                 });
                                }else if(data.code==2){
-                                layer.msg(data.mag);
+                                layer.alert('', {
+                                    type: 3
+                                    ,time: 2000
+                                    ,end:function(){
+                                        layer.msg(data.mag);
+                                    }
+                                });
+                                
                                }else{
                                 let mag='';
                                 for(j in data.mag.customMessages) {

@@ -2,7 +2,7 @@
  <div class="left-nav">
             <div id="side-nav">
                 <ul id="nav">
-                    <li>
+                    <!-- <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="会员管理">&#xe6b8;</i>
                             <cite>用户管理</cite>
@@ -47,7 +47,7 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                     <!-- <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="订单管理">&#xe723;</i>
@@ -92,29 +92,28 @@
                             </li>
                         </ul>
                     </li> -->
+                    @foreach($data as $v)
+                    @if($v->parent==0)
                     <li>
                         <a href="javascript:;">
-                            <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe726;</i>
-                            <cite>管理员管理</cite>
+                            <i class="iconfont left-nav-li" lay-tips="{{$v->per_name}}">&#xe726;</i>
+                            <cite>{{$v->per_name}}</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
+                        @foreach($data as $v1)
+                            @if($v1->parent==$v->id)
                             <li>
-                                <a onclick="xadmin.add_tab('管理员列表','{{url('admin/list')}}')">
+                                <a onclick="xadmin.add_tab('{{$v1->per_name}}','/{{$v1->per_url}}')">
                                     <i class="iconfont">&#xe6a7;</i>
-                                    <cite>管理员列表</cite></a>
+                                    <cite>{{$v1->per_name}}</cite></a>
                             </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('角色管理','{{url('role/list')}}')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>角色管理</cite></a>
-                            </li>
-                            <li>
-                                <a onclick="xadmin.add_tab('权限管理','{{url('permission/list')}}')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>权限管理</cite></a>
-                            </li>
+                            @endif
+                        @endforeach
                         </ul>
+                        
                     </li>
+                    @endif
+                    @endforeach
                     <!-- <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="系统统计">&#xe6ce;</i>

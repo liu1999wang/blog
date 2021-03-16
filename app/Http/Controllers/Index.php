@@ -8,15 +8,26 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;//表单提交
 use App\Model\AdminData;
+use Illuminate\Support\Facades\Cache;//缓存
 use Illuminate\Support\Facades\View;//视图
+use App\Model\PermissionData;
 class Index extends BaseController
 {
     // 首页
-    public function index(){
-        return view('admin/index/index');;
-        // $user = User::get();
-        // return view('admin/index/index')->with('user',$user);
-        // dd('首页');
+    public function index(Request $request){
+        $dh= Cache::get('admin_is_show');
+        $dhdata=[];
+        foreach($dh as $v){
+            $dhdata[]=PermissionData::find($v);
+
+        }
+        foreach($dhdata as $v){
+            $dataurl=explode('\\',$v->per_url);
+            $url=strtolower(str_replace("@","/",$dataurl[count($dataurl)-1]));
+            $dhurl=$url;
+            $v->per_url=$dhurl;
+        }
+        return view('admin/index/index')->with('data',$dhdata);
     }
     // 欢迎页
     public function welcome(){
@@ -26,6 +37,8 @@ class Index extends BaseController
     public function loginout(){
         // 清空session
         session()->flush();
+        //清空缓存
+        Cache::flush();
         return redirect('login/index');
     }
     //修改页面
@@ -43,5 +56,9 @@ class Index extends BaseController
         }else{
             return back();
         }
+    }
+    //无权限页面
+    public function nothing(){
+        return view('admin/index/nothing');
     }
 }

@@ -66,7 +66,7 @@
                                     <td>@if($v->parent==0)无 @else @foreach($data as $v1)@if($v1->id==$v->parent) {{$v1->per_name}} @endif @endforeach @endif</td>
                                     <td>@if($v->is_show==1) 是 @else 否 @endif</td>
                                     <td class="td-manage">
-                                      <a title="编辑"  onclick="xadmin.open('编辑','{{url('role/'.$v->id.'/edit')}}',600,400)" href="javascript:;">
+                                      <a title="编辑"  onclick="xadmin.open('编辑','{{url('permission/'.$v->id.'/edit')}}',600,400)" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>
                                       </a>
                                       <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">

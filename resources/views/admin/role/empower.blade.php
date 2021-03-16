@@ -17,6 +17,7 @@
             <div class="layui-row">
                 <form class="layui-form">
                     {{csrf_field()}}
+                    <input type="hidden" name='role_id' value="{{$role_id}}">
                     <div class="layui-form-item">
                         <label class="layui-form-label">权限</label>
                         <div class="layui-input-block">
@@ -89,30 +90,29 @@
                             data:data.field,
                             success:function(data){
                                 var data= JSON.parse ( data )  
-                                console.log(data) 
-                                // if(data.code==1){
-                                //     layer.alert(data.mag, {
-                                //         icon: 6
-                                //     },
-                                //     function() {
-                                //         //关闭当前frame
-                                //         xadmin.close();
+                                if(data.code==1){
+                                    layer.alert(data.mag, {
+                                        icon: 6
+                                    },
+                                    function() {
+                                        //关闭当前frame
+                                        xadmin.close();
 
-                                //         // 可以对父窗口进行刷新 
-                                //         xadmin.father_reload();
-                                //     });
-                                // }else{
-                                //     layer.alert(data.mag, {
-                                //         icon: 5
-                                //     },
-                                //     function() {
-                                //         //关闭当前frame
-                                //         xadmin.close();
+                                        // 可以对父窗口进行刷新 
+                                        xadmin.father_reload();
+                                    });
+                                }else{
+                                    layer.alert(data.mag, {
+                                        icon: 5
+                                    },
+                                    function() {
+                                        //关闭当前frame
+                                        xadmin.close();
 
-                                //         // 可以对父窗口进行刷新 
-                                //         xadmin.father_reload();
-                                //     });
-                                // }
+                                        // 可以对父窗口进行刷新 
+                                        xadmin.father_reload();
+                                    });
+                                }
                             }
                     });
                     

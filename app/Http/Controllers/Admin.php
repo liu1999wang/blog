@@ -8,7 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Model\AdminData;
-
+use App\Model\RoleData;
 class Admin extends BaseController
 {
     // 列表页
@@ -53,6 +53,14 @@ class Admin extends BaseController
     public function update(Request $request){
         $input=$request->all();
         $user=AdminData::find($input['uid']);
+        $roel=$user->admin_role;
+
+        //超级管理员不能被修改
+        foreach($roel as $v){
+            if($v->id==1){
+                return json_encode(['code'=>0,'mag'=>'无权修改该用户']);
+            }
+        }
         $res=$user->update(['user_name'=>$input['user_name']]);
         if($res){
             return json_encode(['code'=>1,'mag'=>'修改成功']);
@@ -64,6 +72,13 @@ class Admin extends BaseController
     public function statu(Request $request){
         $input=$request->all();
         $user=AdminData::find($input['uid']);
+        $roel=$user->admin_role;
+        //超级管理员不能被修改
+        foreach($roel as $v){
+            if($v->id==1){
+                return json_encode(['code'=>0,'mag'=>'无权修改该用户']);
+            }
+        }
         if($user['statu']==1){
             $res=$user->update(['statu'=>0]);
             if($res){
@@ -84,12 +99,46 @@ class Admin extends BaseController
     public function reset_pass(Request $request){
         $input=$request->all();
         $user=AdminData::find($input['uid']);
+        $roel=$user->admin_role;
+        //超级管理员不能被修改
+        foreach($roel as $v){
+            if($v->id==1){
+                return json_encode(['code'=>0,'mag'=>'无权修改该用户']);
+            }
+        }
         $pass=md5('ljw990'.'123456'.'210ww');
         $res=$user->update(['user_pass'=>$pass]);
         if($res){
             return json_encode(['code'=>1,'mag'=>'修改成功']);
         }else{
             return json_encode(['code'=>0,'mag'=>'修改失败']);
+        }
+    }
+    //赋予角色
+    public function role($admin_id){
+        $role=RoleData::get();
+        $admin=AdminData::find($admin_id)->admin_role;
+        return view('admin/admin/role')->with('data',$admin)->with('roledata',$role)->with('admin_id',$admin_id);
+    }
+    //修改管理员角色
+    public function give(Request $request){
+        $input=$request->except('_token');
+        $admin=AdminData::find($input['admin_id'])->admin_role;
+
+        //超级管理员不能被修改
+        foreach($admin as $v){
+            if($v->id==1){
+                return json_encode(['code'=>0,'mag'=>'无权修改该用户']);
+            }
+        }
+        if(!isset($input['role'])){
+            return json_encode(['code'=>0,'mag'=>'角色不能为空']);
+        }
+        $res=AdminData::find($input['admin_id'])->admin_role()->sync($input['role']);
+        if($res){
+            return json_encode(['code'=>1,'mag'=>'授权成功']);
+        }else{
+            return json_encode(['code'=>0,'mag'=>'授权失败']);
         }
     }
 }

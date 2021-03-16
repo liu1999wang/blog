@@ -1,8 +1,27 @@
 ﻿# Host: localhost  (Version: 5.5.53)
-# Date: 2021-03-08 17:07:43
+# Date: 2021-03-16 16:28:06
 # Generator: MySQL-Front 5.3  (Build 4.234)
 
 /*!40101 SET NAMES utf8 */;
+
+#
+# Structure for table "blog_admin_role"
+#
+
+DROP TABLE IF EXISTS `blog_admin_role`;
+CREATE TABLE `blog_admin_role` (
+  `admin_id` int(11) NOT NULL DEFAULT '0',
+  `role_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`admin_id`,`role_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+#
+# Data for table "blog_admin_role"
+#
+
+/*!40000 ALTER TABLE `blog_admin_role` DISABLE KEYS */;
+INSERT INTO `blog_admin_role` VALUES (1,1),(2,1),(3,1),(4,1),(5,3),(6,2),(7,3),(8,3);
+/*!40000 ALTER TABLE `blog_admin_role` ENABLE KEYS */;
 
 #
 # Structure for table "blog_article"
@@ -177,14 +196,14 @@ CREATE TABLE `blog_permission` (
   `parent` int(11) NOT NULL DEFAULT '0',
   `is_show` int(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "blog_permission"
 #
 
 /*!40000 ALTER TABLE `blog_permission` DISABLE KEYS */;
-INSERT INTO `blog_permission` VALUES (1,'管理员管理','#',0,1),(2,'管理员列表','admin/list',1,1),(3,'管理员添加','admin/add',2,0),(4,'管理员编辑','admin/edit',2,0),(5,'管理员删除','admin/del',2,0),(6,'赋予角色','admin/role',2,0),(7,'角色管理','role/list',1,1),(8,'角色添加','role/add',7,0),(9,'角色编辑','role/edit',7,0),(10,'角色授权','role/empower',7,0),(11,'角色删除','role/del',7,0),(12,'权限管理','permission/list',1,1),(13,'权限添加','permission/add',12,0),(14,'权限编辑','permission/edit',12,0),(15,'权限删除','permission/del',12,0);
+INSERT INTO `blog_permission` VALUES (1,'管理员管理','#',0,1),(2,'管理员列表','App\\Http\\Controllers\\Admin@list',1,1),(3,'管理员添加','App\\Http\\Controllers\\Admin@add',2,0),(4,'管理员编辑','App\\Http\\Controllers\\Admin@edit',2,0),(5,'管理员删除','App\\Http\\Controllers\\Admin@del',2,0),(6,'赋予角色','App\\Http\\Controllers\\Admin@role',2,0),(7,'角色管理','App\\Http\\Controllers\\Role@list',1,1),(8,'角色添加','App\\Http\\Controllers\\Role@add',7,0),(9,'角色编辑','App\\Http\\Controllers\\Role@edit',7,0),(10,'角色授权','App\\Http\\Controllers\\Role@empower',7,0),(11,'角色删除','App\\Http\\Controllers\\Role@del',7,0),(12,'权限管理','App\\Http\\Controllers\\Permission@list',1,1),(13,'权限添加','App\\Http\\Controllers\\Permission@add',12,0),(14,'权限编辑','App\\Http\\Controllers\\Permission@edit',12,0),(15,'权限删除','App\\Http\\Controllers\\Permission@del',12,0),(16,'用户管理','#',0,1),(17,'用户列表','App\\Http\\Controllers\\User@list',16,1),(18,'用户添加','App\\Http\\Controllers\\User@add',17,0);
 /*!40000 ALTER TABLE `blog_permission` ENABLE KEYS */;
 
 #
@@ -197,14 +216,14 @@ CREATE TABLE `blog_role` (
   `role_name` varchar(255) NOT NULL DEFAULT '',
   `describe` varchar(255) NOT NULL DEFAULT '无',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "blog_role"
 #
 
 /*!40000 ALTER TABLE `blog_role` DISABLE KEYS */;
-INSERT INTO `blog_role` VALUES (1,'超级管理员','拥有最高权限'),(2,'文章管理员','拥有关于文章的权限');
+INSERT INTO `blog_role` VALUES (1,'超级管理员','拥有最高权限'),(2,'文章管理员','拥有关于文章的权限'),(3,'用户管理员','拥有关于用户的权限');
 /*!40000 ALTER TABLE `blog_role` ENABLE KEYS */;
 
 #
@@ -223,7 +242,7 @@ CREATE TABLE `blog_role_permission` (
 #
 
 /*!40000 ALTER TABLE `blog_role_permission` DISABLE KEYS */;
-INSERT INTO `blog_role_permission` VALUES (1,1),(1,2),(1,3),(1,4);
+INSERT INTO `blog_role_permission` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(2,16),(2,17),(2,18),(3,16),(3,17),(3,18);
 /*!40000 ALTER TABLE `blog_role_permission` ENABLE KEYS */;
 
 #
@@ -256,16 +275,19 @@ CREATE TABLE `data_reception_user` (
   `user_id` int(10) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(60) NOT NULL DEFAULT '',
   `user_pass` varchar(60) NOT NULL DEFAULT '',
-  `phone` int(11) NOT NULL DEFAULT '0',
+  `phone` varchar(11) NOT NULL DEFAULT '0',
   `email` varchar(255) NOT NULL DEFAULT '',
   `sex` int(2) NOT NULL DEFAULT '0',
   `head` longtext NOT NULL,
+  `statu` int(2) NOT NULL DEFAULT '1',
+  `add_time` date NOT NULL DEFAULT '0000-00-00',
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "data_reception_user"
 #
 
 /*!40000 ALTER TABLE `data_reception_user` DISABLE KEYS */;
+INSERT INTO `data_reception_user` VALUES (1,'12313','57e30cd5deeed1b3fd16c60938d7d8e2','15860298821','2449253779@qq.com',1,'..\\upload\\head\\head2.png',1,'2021-03-16'),(2,'明天，你好','57e30cd5deeed1b3fd16c60938d7d8e2','15860298821','2449253778@qq.com',0,'../upload/uphead/izndkrvpgcrjuopacpsbewydsa1615881745.jpeg',1,'2021-03-16');
 /*!40000 ALTER TABLE `data_reception_user` ENABLE KEYS */;

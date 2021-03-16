@@ -6,11 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class UserData extends Authenticatable
 {
     use Notifiable;
     //模型关联表
-    public  $table ='data_admin_user';
+    public  $table ='data_reception_user';
     //关联表主键
     public  $primaryKey= 'user_id';
     /**
@@ -18,9 +18,7 @@ class User extends Authenticatable
      *允许被批量操作的字段
      * @var array
      */
-    protected $fillable = [
-        'user_name','user_pass',
-    ];
+    protected $guarded=[];//禁用字段
     //禁用时间戳
     public $timestamps=false;
     /**
